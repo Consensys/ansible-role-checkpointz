@@ -1,0 +1,25 @@
+---
+checkpointz_user: checkpointz
+checkpointz_group: checkpointz
+checkpointz_container_name: checkpointz
+checkpointz_version: latest
+
+# Directory paths
+checkpointz_base_dir: "/opt/checkpointz"
+
+# checkpointz config
+checkpointz_listen_addr: 5555
+checkpointz_logging: debug
+checkpointz_metrics_addr: 9090
+checkpointz_mode: full
+checkpointz_caches_blocks_max_items: 200
+checkpointz_caches_states_max_items: 5
+checkpointz_historical_epoch_count: 20
+checkpointz_frontend_enabled: true
+checkpointz_frontend_brand_image_url: ""
+checkpointz_frontend_brand_name: ""
+checkpointz_frontend_public_url: ""
+
+# upstream beacon nodes
+# { "name": "beacon node name", "address": "http://localhost:5052", "dataProvider": true}
+checkpointz_upstream_nodes: []

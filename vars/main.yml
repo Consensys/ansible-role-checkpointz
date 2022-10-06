@@ -1,0 +1,2 @@
+---
+checkpointz_image: samcm/checkpointz:{{ checkpointz_version }}

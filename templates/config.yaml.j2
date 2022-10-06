@@ -1,0 +1,55 @@
+global:
+  # The address the main http server will listen on
+  listenAddr: ":{{ checkpointz_listen_addr }}"
+  # Log level (panic, fatal, warn, info, debug, trace)
+  logging: "{{ checkpointz_logging }}"
+  # The address the metrics server will listen on
+  metricsAddr: ":{{ checkpointz_metrics_addr }}"
+
+checkpointz:
+  mode: "{{ checkpointz_mode }}"
+{% if checkpointz_caches_blocks_max_items is defined or checkpointz_caches_states_max_items is defined %}
+  caches:
+{% if checkpointz_caches_blocks_max_items is defined %}
+    blocks:
+      # Controls the amount of "block" items that can be stored by Checkpointz (minimum 3)
+      max_items: {{ checkpointz_caches_blocks_max_items }}
+{% endif %}
+{% if checkpointz_caches_states_max_items is defined %}
+    states:
+      # Controls the amount of "state" items that can be stored by Checkpointz (minimum 3)
+      # These starts a very large and this value will directly relate to memory usage. Anything higher than
+      # 10 is not recommended.
+      max_items: {{ checkpointz_caches_states_max_items }}
+{% endif %}
+{% endif %}
+  historical_epoch_count: {{ checkpointz_historical_epoch_count }} # Controls the amount of historical epoch boundaries that Checkpointz will fetch and serve.
+  frontend:
+    # if the frontend should be enabled
+    enabled: {{ checkpointz_frontend_enabled }}
+{% if checkpointz_frontend_brand_image_url|length %}
+    # The brand logo to display on the frontend (optional)
+    brand_image_url: "{{ checkpointz_frontend_brand_image_url }}"
+{% endif %}
+{% if checkpointz_frontend_brand_name|length %}
+    # The name of the brand to display on the frontend (optional)
+    brand_name: "{{ checkpointz_frontend_brand_name }}"
+{% endif %}
+{% if checkpointz_frontend_public_url|length %}
+    # The public URL of where the frontend will be served from (optional)
+    public_url: "{{ checkpointz_frontend_public_url }}"
+{% endif %}
+
+{% if checkpointz_upstream_nodes|length %}
+beacon:
+  # Upstreams configures the upstream beacon nodes to use.
+  upstreams:
+{% for nodes in checkpointz_upstream_nodes %}
+    # Shown in the frontend
+  - name: "{{ nodes.name }}"
+    # The address of your beacon node. Note: NOT shown in the frontend
+    address: "{{ nodes.address }}"
+    # If true, Checkpointz will use this instance to fetch beacon blocks/state. If false, will only be used for finality checkpoints.
+    dataProvider: {{ nodes.dataProvider }}
+{% endfor %}
+{% endif %}

@@ -1,0 +1,18 @@
+---
+- name: Fail if checkpointz_version not set
+  ansible.builtin.fail:
+    msg: Role will not run if checkpointz_version is not set. Accepts semver value or "latest"
+  when: checkpointz_version is not defined
+
+- name: Install checkpointz
+  include_tasks: "install.yml"
+
+- name: Get IP address to bind to if not provided
+  include_tasks: "network.yml"
+  when: checkpointz_host_ip is not defined
+
+- name: Create config
+  include_tasks: "config.yml"
+
+- name: Create checkpointz docker
+  include_tasks: "docker.yml"

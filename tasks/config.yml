@@ -1,0 +1,18 @@
+---
+- name: Template config.yaml to {{ checkpointz_base_dir }}
+  ansible.builtin.template:
+    src: config.yaml.j2
+    dest: "{{ checkpointz_base_dir }}/config.yaml"
+    owner: "{{ checkpointz_user }}"
+    group: "{{ checkpointz_group }}"
+    mode: "0644"
+  become: yes
+
+- name: Template docker-compose.yaml to {{ checkpointz_base_dir }}
+  ansible.builtin.template:
+    src: docker-compose.yaml.j2
+    dest: "{{ checkpointz_base_dir }}/docker-compose.yaml"
+    owner: "{{ checkpointz_user }}"
+    group: "{{ checkpointz_group }}"
+    mode: "0644"
+  become: yes

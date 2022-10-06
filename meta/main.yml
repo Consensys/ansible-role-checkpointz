@@ -1,0 +1,34 @@
+---
+galaxy_info:
+  author: Consensys
+  role_name: checkpointz
+  description: An Ethereum beacon chain checkpoint sync provider
+  company: Consensys
+  license: license (Apache)
+  min_ansible_version: 2.6
+  platforms:
+    - name: Debian
+      versions:
+        - jessie
+        - stretch
+    - name: Ubuntu
+      versions:
+        - xenial
+        - bionic
+        - cosmic
+    - name: EL
+      versions:
+        - 7
+    - name: Fedora
+      versions:
+        - 28
+        - 29
+        - 30
+    - name: MacOS
+      versions:
+        - all
+  galaxy_tags:
+    - checkpointz
+    - blockchain
+    - ethereum
+    - crypto

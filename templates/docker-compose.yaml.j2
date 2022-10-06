@@ -1,0 +1,11 @@
+version: "3.3"
+services:
+  "{{ checkpointz_container_name }}":
+    container_name: "{{ checkpointz_container_name }}"
+    command: --config /opt/checkpointz/config.yaml
+    volumes:
+      - "{{ checkpointz_base_dir }}/config.yaml:/opt/checkpointz/config.yaml"
+    ports:
+      - "{{ checkpointz_metrics_addr }}:{{ checkpointz_metrics_addr }}"
+      - "{{ checkpointz_listen_addr }}:{{ checkpointz_listen_addr }}"
+    image: "{{ checkpointz_image }}"

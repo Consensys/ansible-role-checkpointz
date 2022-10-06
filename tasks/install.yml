@@ -1,0 +1,21 @@
+---
+- name: Ensure checkpointz group exists
+  group:
+    name: "{{ checkpointz_group }}"
+    state: present
+  become: true
+
+- name: Create checkpointz user
+  user:
+    comment: checkpointz client user
+    name: "{{ checkpointz_user }}"
+    group: "{{ checkpointz_group }}"
+  become: true
+
+- name: Create base directory
+  file:
+    path: "{{ checkpointz_base_dir }}"
+    state: directory
+    owner: "{{ checkpointz_user }}"
+    group: "{{ checkpointz_group }}"
+  become: true

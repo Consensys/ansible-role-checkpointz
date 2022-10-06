@@ -1,0 +1,16 @@
+---
+- name: Start docker service, if not started
+  ansible.builtin.service:
+    name: docker
+    state: started
+
+- name: Run docker-compose
+  community.docker.docker_compose:
+    project_src: "{{ checkpointz_base_dir }}"
+    build: false
+    restarted: true
+  register: output
+  become: yes
+
+- ansible.builtin.debug:
+    var: output
